@@ -69,30 +69,10 @@ docker-compose up -d
 ```
 
 *Ilustrasi:*
-```
-[Image: Docker Compose Up - Output Terminal]
-# Screenshot Anda yang menunjukkan output `docker-compose up -d`
-# WARN /home/honque/New folder/kafka/docker-compose.yml: the attribute 'version' is obsolete, it will be ignored, please remove it to avoid potential confusion
-# [+] Running 9/155
-# ✔ kafka Pulled                                                                                                                              118.4s
-# ... (output pull image)
-# ✔ Container zookeeper Started                                                                                                                3.6s
-# ✔ Container kafka Started                                                                                                                    3.2s```
-
-**c. Verifikasi kontainer yang berjalan:**
-
-```bash
-docker ps
-```
+![Alt text](img/img1.jpeg)
 
 *Ilustrasi:*
-```
-[Image: Docker PS - Output Terminal]
-# Screenshot Anda yang menunjukkan output `docker ps`
-# CONTAINER ID   IMAGE                           COMMAND                  CREATED          STATUS          PORTS                                                                            NAMES
-# 4106944af004   confluentinc/cp-kafka:7.5.3     "/etc/confluent/dock…"   18 minutes ago   Up 18 minutes   0.0.0.0:9092->9092/tcp, 0.0.0.0:29092->29092/tcp                                 kafka
-# a84e259b3cc10  confluentinc/cp-zookeeper:7.5.3 "/etc/confluent/dock…"   18 minutes ago   Up 18 minutes   2888/tcp, 0.0.0.0:2181->2181/tcp, 3888/tcp                                       zookeeper
-```
+![Alt text](img/img2.jpeg)
 
 ### 2. Buat Topik Kafka
 
@@ -128,26 +108,7 @@ kafka-topics --list --bootstrap-server localhost:9092
 Setelah selesai, ketik `exit` untuk keluar dari kontainer.
 
 *Ilustrasi:*
-```
-[Image: Kafka Topics Creation and List - Output Terminal]
-# Screenshot Anda yang menunjukkan proses pembuatan dan listing topik Kafka
-# [appuser@4106944af004 ~]$ kafka-topics --create \
-# > --topic sensor-suhu-gudang \
-# > --bootstrap-server localhost:9092 \
-# > --replication-factor 1 \
-# > --partitions 1
-# Created topic sensor-suhu-gudang.
-# [appuser@4106944af004 ~]$ kafka-topics --create \
-# > --topic sensor-kelembaban-gudang \
-# > --bootstrap-server localhost:9092 \
-# > --replication-factor 1 \
-# > --partitions 1
-# Created topic sensor-kelembaban-gudang.
-# [appuser@4106944af004 ~]$ kafka-topics --list --bootstrap-server localhost:9092
-# sensor-kelembaban-gudang
-# sensor-suhu-gudang
-# [appuser@4106944af004 ~]$ exit
-```
+![Alt text](img/img3.jpeg)
 
 ### 3. Setup Lingkungan Python dan Install Dependensi
 
@@ -167,25 +128,8 @@ pip install kafka-python pyspark
 ```
 
 *Ilustrasi:*
-```
-[Image: Pip Install Kafka-Python - Output Terminal]
-# Screenshot Anda yang menunjukkan instalasi kafka-python
-# (venv) honque@LAPTOP-09HKEQB6:~/New folder/kafka$ pip install kafka-python
-# Collecting kafka-python
-# Downloading kafka-python-2.2.9-py2.py3-none-any.whl.metadata (10.0 kB)
-# Downloading kafka-python-2.2.9-py2.py3-none-any.whl (309 kB)
-#    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 309.1/309.1 kB 3.1 MB/s eta 0:00:00
-# Installing collected packages: kafka-python
-# Successfully installed kafka-python-2.2.9
-
-[Image: Pip Install PySpark - Output Terminal]
-# Screenshot Anda yang menunjukkan instalasi pyspark
-# (venv) honque@LAPTOP-09HKEQB6:~/New folder/kafka$ pip install pyspark
-# Collecting pyspark
-# Downloading pyspark-3.5.5.tar.gz (317.2 MB)
-# ... (output instalasi pyspark)
-# Successfully installed py4j-0.10.9.7 pyspark-3.5.5
-```
+![Alt text](img/img4.jpeg)
+![Alt text](img/img5.jpeg)
 
 ### 4. Simulasikan Data Sensor (Producer Kafka)
 
@@ -486,25 +430,4 @@ Anda akan melihat output dari producer yang mengirim data, dan output dari PySpa
 3.  Status gabungan untuk setiap gudang, termasuk peringatan kritis jika suhu dan kelembaban sama-sama tinggi.
 
 *Ilustrasi:*
-```
-[Image: Producer Suhu, Producer Kelembaban, dan PySpark Consumer Output - Gabungan Screenshot]
-# Screenshot Anda yang menampilkan tiga jendela terminal:
-# 1. Output producer_suhu.py (Mengirim: {'gudang_id': 'G1', 'suhu': 85.31, 'timestamp': 1747887426.8755586})
-# 2. Output producer_kelembaban.py (Mengirim: {'gudang_id': 'G1', 'kelembaban': 77.53, 'timestamp': 1747887427.8000596})
-# 3. Output pyspark_consumer.py, menampilkan berbagai status:
-#    [Peringatan Suhu Tinggi] Gudang G2: Suhu 86.52999877929688°C - 2025-05-22 04:57:06
-#    [Peringatan Kelembaban Tinggi] Gudang G1: Kelembaban 75.9000015258789% - 2025-05-22 04:57:07
-#    --- Status Gudang Gabungan (Batch ID: X) ---
-#    [PERINGATAN KRITIS] Gudang G1:
-#    - Suhu: 89.91999816894531°C
-#    - Kelembaban: 74.33000183105469%
-#    - Waktu Kejadian: 2025-05-22 04:57:03
-#    - Status: Bahaya tinggi! Barang berisiko rusak
-#    ------------------------------
-#    [INFO] Gudang G2:
-#    - Suhu: 86.52999877929688°C
-#    - Kelembaban: 67.69999694824219%
-#    - Waktu Kejadian: 2025-05-22 04:57:06
-#    - Status: Suhu tinggi, kelembaban normal
-#    ------------------------------
-```
+![Alt text](img/img6.jpeg)
